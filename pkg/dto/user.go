@@ -3,8 +3,8 @@ package dto
 // RegisterInput 注册
 type RegisterInput struct {
 	LoginInput
-	Name  string `json:"name" form:"name" comment:"昵称" example:"小明" validate:"required,alphanum"` // 昵称
-	Phone string `json:"phone" form:"phone" comment:"手机号" example:"19999999999"`                  // 手机号
+	Name  string `json:"name" form:"name" comment:"昵称" example:"小明" validate:"required,alphanumunicode"` // 昵称
+	Phone string `json:"phone" form:"phone" comment:"手机号" example:"19999999999" validate:"phone"`        // 手机号
 }
 
 // LoginInput 登录

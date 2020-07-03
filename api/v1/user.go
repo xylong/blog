@@ -22,6 +22,9 @@ type UserController struct {
 // @Router /api/v1/register [post]
 func (u *UserController) Register(c *gin.Context) {
 	input := &dto.RegisterInput{}
+	if err := input.Check(c, input); err != nil {
+		pkg.PanicError(http.StatusBadRequest, err)
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,

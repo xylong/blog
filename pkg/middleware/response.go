@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"blog/pkg"
-	"blog/pkg/dto"
 	"github.com/gin-gonic/gin"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
@@ -37,10 +36,7 @@ func Recovery(c *gin.Context) {
 				// 翻译
 				errs, ok := e.Err.(validator.ValidationErrors)
 				if ok {
-					trans, ok := c.Value("trans").(ut.Translator)
-					if !ok {
-						trans, _ = dto.Uni.GetTranslator("zh")
-					}
+					trans, _ := c.Value(TranslatorKey).(ut.Translator)
 					for _, item := range errs {
 						e.Msg = item.Translate(trans)
 						break
@@ -64,5 +60,6 @@ func Recovery(c *gin.Context) {
 			})
 		}
 	}()
+
 	c.Next()
 }
