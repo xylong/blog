@@ -1,11 +1,50 @@
 package v1
 
-import "github.com/gin-gonic/gin"
+import (
+	"blog/pkg"
+	"blog/pkg/dto"
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+var User = &UserController{}
 
 //  UserController 用户控制器
 type UserController struct {
 }
 
+// @Summary 注册
+// @Description 用户注册
+// @Tags 用户接口
+// @Produce  json
+// @Param body body dto.RegisterInput true "body"
+// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Router /api/v1/register [post]
 func (u *UserController) Register(c *gin.Context) {
+	input := &dto.RegisterInput{}
 
+	c.JSON(http.StatusOK, gin.H{
+		"code": 0,
+		"data": input.Email,
+		"msg":  "ok",
+	})
+}
+
+// @Summary 登录
+// @Description 用户登录
+// @Tags 用户接口
+// @Produce  json
+// @Param body body dto.LoginInput true "body"
+// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Router /api/v1/login [post]
+func (u *UserController) Login(c *gin.Context) {
+	input := &dto.LoginInput{}
+	if err := input.Check(c, input); err != nil {
+		pkg.PanicErrorWithMsg(http.StatusBadRequest, err.Error())
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"code": 0,
+		"data": input.Email,
+		"msg":  "ok",
+	})
 }

@@ -1,7 +1,66 @@
+definitions:
+  dto.LoginInput:
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.RegisterInput:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+    type: object
 info:
   contact: {}
   license: {}
 paths:
+  /api/v1/login:
+    post:
+      description: 用户登录
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 登录
+      tags:
+      - 用户接口
+  /api/v1/register:
+    post:
+      description: 用户注册
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 注册
+      tags:
+      - 用户接口
   /ping:
     get:
       produces:
