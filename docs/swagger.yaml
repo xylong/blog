@@ -1,0 +1,15 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /ping:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"pong"}'
+          schema:
+            type: string
+      summary: ping
+swagger: "2.0"
