@@ -18,7 +18,7 @@ type UserController struct {
 // @Tags 用户接口
 // @Produce  json
 // @Param body body dto.RegisterInput true "body"
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Success 200 {object} dto.LoginOutput "success"
 // @Router /api/v1/register [post]
 func (u *UserController) Register(c *gin.Context) {
 	input := &dto.RegisterInput{}
@@ -35,12 +35,12 @@ func (u *UserController) Register(c *gin.Context) {
 // @Tags 用户接口
 // @Produce  json
 // @Param body body dto.LoginInput true "body"
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Success 200 {object} dto.LoginOutput "success"
 // @Router /api/v1/login [post]
 func (u *UserController) Login(c *gin.Context) {
 	input := &dto.LoginInput{}
 	if err := input.Check(c, input); err != nil {
-		pkg.PanicErrorWithMsg(http.StatusBadRequest, err.Error())
+		pkg.PanicError(http.StatusBadRequest, err)
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,

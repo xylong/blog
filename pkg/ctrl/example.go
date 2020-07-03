@@ -12,7 +12,7 @@ type ExampleController struct {
 
 // @Summary ping
 // @Produce  json
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"pong"}"
+// @Success 200 {string} string "{"code":200,"data":{},"msg":"pong"}"
 // @Router /ping [get]
 func (e *ExampleController) Ping(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{

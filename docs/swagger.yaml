@@ -1,21 +1,52 @@
 definitions:
   dto.LoginInput:
     properties:
-      name:
+      email:
+        description: 邮箱
+        example: abc123@qq.com
         type: string
       password:
+        description: 密码
+        example: "123456"
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dto.LoginOutput:
+    properties:
+      email:
+        description: 邮箱
+        type: string
+      id:
+        description: id
+        type: integer
+      name:
+        description: 昵称
         type: string
     type: object
   dto.RegisterInput:
     properties:
       email:
+        description: 邮箱
+        example: abc123@qq.com
         type: string
       name:
+        description: 昵称
+        example: 小明
         type: string
       password:
+        description: 密码
+        example: "123456"
         type: string
       phone:
+        description: 手机号
+        example: "19999999999"
         type: string
+    required:
+    - email
+    - name
+    - password
     type: object
 info:
   contact: {}
@@ -31,13 +62,14 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.LoginInput'
+          type: object
       produces:
       - application/json
       responses:
         "200":
-          description: '{"code":200,"data":{},"msg":"ok"}'
+          description: success
           schema:
-            type: string
+            $ref: '#/definitions/dto.LoginOutput'
       summary: 登录
       tags:
       - 用户接口
@@ -51,13 +83,14 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.RegisterInput'
+          type: object
       produces:
       - application/json
       responses:
         "200":
-          description: '{"code":200,"data":{},"msg":"ok"}'
+          description: success
           schema:
-            type: string
+            $ref: '#/definitions/dto.LoginOutput'
       summary: 注册
       tags:
       - 用户接口
