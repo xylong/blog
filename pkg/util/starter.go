@@ -30,8 +30,6 @@ type (
 	StarterContext map[string]interface{}
 	// PriorityGroup 优先级
 	PriorityGroup int
-	// Starters 所有资源启动器
-	Starters []Starter
 )
 
 // Starter 资源启动器

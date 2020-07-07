@@ -1,0 +1,17 @@
+# mysql config
+
+[database]
+    driver = "mysql"
+    host = "127.0.0.1"
+    port = 3306
+    name = "blog"
+    user = "root"
+    password = "root"
+    # 连接池配置
+    max_open_conn = 100
+    max_idle_conn = 10
+    max_conn_life_time = 100
+    # 数据源参数配置
+    charset = "utf8"
+    parseTime = true
+    local = "Local"
