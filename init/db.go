@@ -26,6 +26,9 @@ func InitDb() {
 	if err != nil {
 		panic("connect mysql failed, " + err.Error())
 	}
+	db.DB().SetMaxIdleConns(10)
+	db.DB().SetMaxOpenConns(100)
+	db.DB().SetConnMaxLifetime(10)
 }
 
 // DbStarter 数据库starter
