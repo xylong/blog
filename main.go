@@ -1,11 +1,19 @@
 package main
 
 import (
-	_ "blog/init"
+	initial "blog/init"
+	"blog/init/base"
 	"blog/pkg/router"
+	"fmt"
 	"github.com/spf13/viper"
+	"github.com/tietang/props/ini"
+	"github.com/tietang/props/kvs"
 	"os"
 )
+
+func init() {
+	initial.Register(&base.PropsStarter{})
+}
 
 func main() {
 	// 设置配置文件路径
@@ -22,6 +30,12 @@ func main() {
 			panic("配置文件内容错误")
 		}
 	}
+
+	file := kvs.GetCurrentFilePath("config/config.ini", 1)
+	conf := ini.NewIniFileCompositeConfigSource(file)
+	app := initial.NewBoot(conf)
+	app.Start()
+
 	engine := router.InitRouter()
 	engine.Run()
 }

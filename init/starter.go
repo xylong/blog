@@ -1,7 +1,8 @@
-package util
+package init
 
 import (
 	"github.com/sirupsen/logrus"
+	"github.com/tietang/props/kvs"
 	"reflect"
 )
 
@@ -31,6 +32,14 @@ type (
 	// PriorityGroup 优先级
 	PriorityGroup int
 )
+
+func (s StarterContext) Props() kvs.ConfigSource {
+	p := s[KeyProps]
+	if p == nil {
+		panic("配置还没初始化")
+	}
+	return p.(kvs.ConfigSource)
+}
 
 // Starter 资源启动器
 type Starter interface {
