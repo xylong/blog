@@ -37,7 +37,7 @@ func init() {
 	formatter.DisableColors = false
 	// 日志文件和滚动配置
 	logf, err := rotatelogs.New(
-		"access_log.%Y%m%d%H%M",
+		"%Y-%m-%d-%H-%M.log",
 		//rotatelogs.WithLinkName("/path/to/access_log"),
 		rotatelogs.WithMaxAge(7*24*time.Hour),  // 文件最大保存时间
 		rotatelogs.WithRotationTime(time.Hour), // 文件切割时间间隔
@@ -63,7 +63,4 @@ func init() {
 		logrus.PanicLevel: logf,
 	}, fileFormatter)
 	logrus.AddHook(hook)
-
-	logrus.Info("test info")
-	logrus.Debug("test debug")
 }
