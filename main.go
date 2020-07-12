@@ -13,6 +13,7 @@ import (
 
 func init() {
 	initial.Register(&base.PropsStarter{})
+	initial.Register(&base.DbStarter{})
 }
 
 func main() {

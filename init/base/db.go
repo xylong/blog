@@ -1,7 +1,14 @@
 package base
 
 import (
+	initial "blog/init"
+	"blog/pkg/model"
+	"fmt"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/sirupsen/logrus"
+	"github.com/tietang/props/kvs"
+	"time"
 )
 
 // db 数据库实例
@@ -12,10 +19,57 @@ func GormDb() *gorm.DB {
 	return db
 }
 
+type settings struct {
+	Driver          string
+	User            string
+	Password        string
+	Database        string
+	Host            string
+	Options         map[string]string
+	ConnMaxLifetime time.Duration
+	MaxOpenConns    int
+	MaxIdleConns    int
+	LoggingEnabled  bool
+}
+
 // DbStarter 数据库starter
-//type DbStarter struct {
-//	init.BaseStarter
-//}
+type DbStarter struct {
+	initial.BaseStarter
+}
+
+func (s *DbStarter) Setup(ctx initial.StarterContext) {
+	var err error
+	conf := ctx.Props()
+	setting := &settings{}
+	err = kvs.Unmarshal(conf, setting, "mysql")
+	if err != nil {
+		panic(err)
+	}
+	db, err = gorm.Open(setting.Driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		setting.User,
+		setting.Password,
+		setting.Host,
+		setting.Database))
+	if err != nil {
+		panic(err)
+	}
+
+	db.DB().SetMaxIdleConns(setting.MaxIdleConns)
+	db.DB().SetMaxOpenConns(setting.MaxOpenConns)
+	db.DB().SetConnMaxLifetime(setting.ConnMaxLifetime)
+
+	db.LogMode(setting.LoggingEnabled)
+	migrate()
+
+	logrus.Debug("mysql.conn url:", setting.Host)
+}
+
+func migrate() {
+	if !db.HasTable(&model.User{}) {
+		db.AutoMigrate(&model.User{})
+	}
+}
+
 //
 //func (s *DbStarter) Setup() {
 //	var err error

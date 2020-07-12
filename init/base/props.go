@@ -2,7 +2,6 @@ package base
 
 import (
 	initial "blog/init"
-	"fmt"
 	"github.com/tietang/props/kvs"
 )
 
