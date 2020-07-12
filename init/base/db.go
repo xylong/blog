@@ -61,7 +61,7 @@ func (s *DbStarter) Setup(ctx initial.StarterContext) {
 	db.LogMode(setting.LoggingEnabled)
 	migrate()
 
-	logrus.Debug("mysql.conn url:", setting.Host)
+	logrus.Infof("mysql.conn url:%s", setting.Host)
 }
 
 func migrate() {

@@ -14,7 +14,11 @@ require (
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/jinzhu/gorm v1.9.14
 	github.com/json-iterator/go v1.1.10 // indirect
+	github.com/lestrrat/go-file-rotatelogs v0.0.0-20180223000712-d3151e2a480f
+	github.com/lestrrat/go-strftime v0.0.0-20180220042222-ba3bf9c1d042 // indirect
 	github.com/mailru/easyjson v0.7.1 // indirect
+	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
+	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/viper v1.7.0
 	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14
@@ -23,6 +27,7 @@ require (
 	github.com/tietang/go-utils v0.1.3 // indirect
 	github.com/tietang/props v2.2.0+incompatible
 	github.com/valyala/fasttemplate v1.2.0 // indirect
+	github.com/x-cray/logrus-prefixed-formatter v0.5.2
 	golang.org/x/net v0.0.0-20200625001655-4c5254603344 // indirect
 	golang.org/x/sys v0.0.0-20200625212154-ddb9806d33ae // indirect
 	golang.org/x/text v0.3.3 // indirect

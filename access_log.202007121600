@@ -1,0 +1,4 @@
+[2020-07-12.16:49:07.279243]  INFO test info
+[2020-07-12.16:49:07.311925]  INFO Register starter: *base.PropsStarter
+[2020-07-12.16:49:07.312048]  INFO Register starter: *base.DbStarter
+[2020-07-12.16:49:07.316962]  INFO mysql.conn url:127.0.0.1
