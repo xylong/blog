@@ -12,7 +12,7 @@ import (
 
 func InitRouter() *gin.Engine {
 	router := gin.New()
-	router.Use(middleware.Recovery)
+	router.Use(middleware.Recovery, middleware.Logger())
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.GET("ping", ctrl.Example.Ping)
