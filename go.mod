@@ -24,7 +24,7 @@ require (
 	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.6.7
-	github.com/tietang/go-utils v0.1.3 // indirect
+	github.com/tietang/go-utils v0.1.3
 	github.com/tietang/props v2.2.0+incompatible
 	github.com/valyala/fasttemplate v1.2.0 // indirect
 	github.com/x-cray/logrus-prefixed-formatter v0.5.2

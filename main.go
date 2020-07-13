@@ -34,6 +34,7 @@ func main() {
 
 	file := kvs.GetCurrentFilePath("config/config.ini", 1)
 	conf := ini.NewIniFileCompositeConfigSource(file)
+	base.InitLog(conf)
 	app := initial.NewBoot(conf)
 	app.Start()
 
