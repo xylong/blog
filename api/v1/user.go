@@ -3,6 +3,7 @@ package v1
 import (
 	"blog/pkg"
 	"blog/pkg/dto"
+	"blog/pkg/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -26,9 +27,14 @@ func (u *UserController) Register(c *gin.Context) {
 		pkg.PanicError(http.StatusBadRequest, err)
 	}
 
+	serve := service.NewUserService()
+	if err := serve.Register(input); err != nil {
+		pkg.PanicIfErr(err)
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,
-		"data": input.Email,
+		"data": nil,
 		"msg":  "ok",
 	})
 }
