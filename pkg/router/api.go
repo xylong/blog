@@ -21,8 +21,16 @@ func InitRouter() *gin.Engine {
 	api.Use(middleware.ResponseHandler, middleware.Translate())
 	{
 		V1 := api.Group("/v1")
+		// 注册
 		V1.POST("/register", v1.User.Register)
+		// 登录
 		V1.POST("/login", v1.User.Login)
+
+		V1.Use(middleware.JWT())
+		{
+			// 个人信息
+			V1.GET("/user", v1.User.Me)
+		}
 	}
 
 	return router

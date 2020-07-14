@@ -10,9 +10,9 @@ import (
 
 type UserService interface {
 	// 注册
-	Register(input *dto.RegisterInput) error
+	Register(*dto.RegisterInput) error
 	// 登录
-	Login()
+	Login(*dto.LoginInput) (string, error)
 	// 注销
 	Logout()
 }
@@ -47,7 +47,7 @@ func (u *user) Register(input *dto.RegisterInput) error {
 	return nil
 }
 
-func (u *user) Login() {
+func (u *user) Login(input *dto.LoginInput) (token string, err error) {
 
 }
 

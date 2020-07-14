@@ -57,3 +57,7 @@ func (u *UserController) Login(c *gin.Context) {
 		"msg":  "ok",
 	})
 }
+
+func (u *UserController) Me(c *gin.Context) {
+
+}
