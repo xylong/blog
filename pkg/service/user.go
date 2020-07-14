@@ -4,6 +4,7 @@ import (
 	"blog/pkg/dao"
 	"blog/pkg/dto"
 	"blog/pkg/model"
+	"errors"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -28,10 +29,16 @@ func (u *user) Register(input *dto.RegisterInput) error {
 	if err != nil {
 		return err
 	}
-	_, err = dao.NewDao().Create(&model.User{
+
+	d := dao.NewDao()
+	if d.IsExist(input.Email, input.Phone) {
+		return errors.New("已注册")
+	}
+
+	_, err = d.Create(&model.User{
 		Name:     input.Name,
-		Email:    input.Email,
 		Phone:    input.Phone,
+		Email:    input.Email,
 		Password: string(hash),
 	})
 	if err != nil {
