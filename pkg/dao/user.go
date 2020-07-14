@@ -40,6 +40,12 @@ func (dao *UserDao) Create(user *model.User) (uint, error) {
 // IsExist 判断用户是否存在
 func (dao *UserDao) IsExist(email, phone string) bool {
 	var user model.User
-	dao.db.Where("email = ?", email).Or("phone = ?", phone).First(&user)
+	if email != "" && phone != "" {
+		dao.db.Where("email = ?", email).Or("phone = ?", phone).First(&user)
+	} else if email != "" && phone == "" {
+		dao.db.Where("email = ?", email).First(&user)
+	} else if email == "" && phone != "" {
+		dao.db.Where("phone = ?", phone).First(&user)
+	}
 	return user.ID > 0
 }

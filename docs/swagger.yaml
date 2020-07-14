@@ -62,7 +62,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.LoginInput'
-          type: object
       produces:
       - application/json
       responses:
@@ -83,14 +82,13 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.RegisterInput'
-          type: object
       produces:
       - application/json
       responses:
         "200":
-          description: success
+          description: '{"code":200,"data":null,"msg":"ok"}'
           schema:
-            $ref: '#/definitions/dto.LoginOutput'
+            type: json
       summary: 注册
       tags:
       - 用户接口

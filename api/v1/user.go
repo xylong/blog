@@ -19,7 +19,7 @@ type UserController struct {
 // @Tags 用户接口
 // @Produce  json
 // @Param body body dto.RegisterInput true "body"
-// @Success 200 {object} dto.LoginOutput "success"
+// @Success 200 {json} json "{"code":200,"data":null,"msg":"ok"}"
 // @Router /api/v1/register [post]
 func (u *UserController) Register(c *gin.Context) {
 	input := &dto.RegisterInput{}

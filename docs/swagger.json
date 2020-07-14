@@ -22,7 +22,6 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "object",
                             "$ref": "#/definitions/dto.LoginInput"
                         }
                     }
@@ -54,16 +53,15 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "object",
                             "$ref": "#/definitions/dto.RegisterInput"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "success",
+                        "description": "{\"code\":200,\"data\":null,\"msg\":\"ok\"}",
                         "schema": {
-                            "$ref": "#/definitions/dto.LoginOutput"
+                            "type": "json"
                         }
                     }
                 }
