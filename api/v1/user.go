@@ -4,11 +4,15 @@ import (
 	"blog/pkg"
 	"blog/pkg/dto"
 	"blog/pkg/service"
+	"blog/pkg/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
-var User = &UserController{}
+var (
+	User = &UserController{}
+)
 
 //  UserController 用户控制器
 type UserController struct {
@@ -26,7 +30,6 @@ func (u *UserController) Register(c *gin.Context) {
 	if err := input.Check(c, input); err != nil {
 		pkg.PanicError(http.StatusBadRequest, err)
 	}
-
 	serve := service.NewUserService()
 	if err := serve.Register(input); err != nil {
 		pkg.PanicIfErr(err)
@@ -44,20 +47,44 @@ func (u *UserController) Register(c *gin.Context) {
 // @Tags 用户接口
 // @Produce  json
 // @Param body body dto.LoginInput true "body"
-// @Success 200 {object} dto.LoginOutput "success"
+// @Success 200 {json} json "{"code":200,"data":"token","msg":"ok"}"
 // @Router /api/v1/login [post]
 func (u *UserController) Login(c *gin.Context) {
 	input := &dto.LoginInput{}
 	if err := input.Check(c, input); err != nil {
 		pkg.PanicError(http.StatusBadRequest, err)
 	}
+
+	serve := service.NewUserService()
+	token, err := serve.Login(input)
+	if err != nil {
+		pkg.PanicIfErr(err)
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,
-		"data": input.Email,
+		"data": token,
 		"msg":  "ok",
 	})
 }
 
+// @Summary 个人信息
+// @Description 获取个人信息
+// @Tags 用户接口
+// @Produce  json
+// @Success 200 {object} dto.Profile "success"
+// @Router /api/v1/login [get]
 func (u *UserController) Me(c *gin.Context) {
+	claims := c.MustGet("claims").(*util.Claims)
+	id, _ := strconv.Atoi(claims.ID)
+	serve := service.NewUserService()
+	user, err := serve.Profile(uint(id))
+	if err != nil {
+		pkg.PanicIfErr(err)
+	}
 
+	c.JSON(http.StatusOK, gin.H{
+		"code": 0,
+		"data": user,
+		"msg":  "ok",
+	})
 }

@@ -26,6 +26,24 @@ var doc = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/api/v1/login": {
+            "get": {
+                "description": "获取个人信息",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户接口"
+                ],
+                "summary": "个人信息",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Profile"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "用户登录",
                 "produces": [
@@ -48,9 +66,9 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "success",
+                        "description": "{\"code\":200,\"data\":\"token\",\"msg\":\"ok\"}",
                         "schema": {
-                            "$ref": "#/definitions/dto.LoginOutput"
+                            "type": "json"
                         }
                     }
                 }
@@ -124,9 +142,13 @@ var doc = `{
                 }
             }
         },
-        "dto.LoginOutput": {
+        "dto.Profile": {
             "type": "object",
             "properties": {
+                "avatar": {
+                    "description": "头像",
+                    "type": "string"
+                },
                 "email": {
                     "description": "邮箱",
                     "type": "string"
@@ -137,6 +159,9 @@ var doc = `{
                 },
                 "name": {
                     "description": "昵称",
+                    "type": "string"
+                },
+                "phone": {
                     "type": "string"
                 }
             }

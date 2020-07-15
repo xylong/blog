@@ -14,8 +14,10 @@ type LoginInput struct {
 	Password string `json:"password" form:"password" comment:"密码" example:"123456" validate:"required,min=6,max=15"` // 密码
 }
 
-type LoginOutput struct {
-	Id    int    `json:"id"`    // id
-	Name  string `json:"name"`  // 昵称
-	Email string `json:"email"` // 邮箱
+type Profile struct {
+	Id     uint   `json:"id"`     // id
+	Avatar string `json:"avatar"` // 头像
+	Name   string `json:"name"`   // 昵称
+	Email  string `json:"email"`  // 邮箱
+	Phone  string `json:"phone"`
 }
