@@ -26,24 +26,6 @@ var doc = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/api/v1/login": {
-            "get": {
-                "description": "获取个人信息",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "用户接口"
-                ],
-                "summary": "个人信息",
-                "responses": {
-                    "200": {
-                        "description": "success",
-                        "schema": {
-                            "$ref": "#/definitions/dto.Profile"
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "用户登录",
                 "produces": [
@@ -100,6 +82,40 @@ var doc = `{
                         "description": "{\"code\":200,\"data\":null,\"msg\":\"ok\"}",
                         "schema": {
                             "type": "json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获取个人信息",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户接口"
+                ],
+                "summary": "个人信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Profile"
                         }
                     }
                 }

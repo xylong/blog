@@ -70,9 +70,11 @@ func (u *UserController) Login(c *gin.Context) {
 // @Summary 个人信息
 // @Description 获取个人信息
 // @Tags 用户接口
+// @Security ApiKeyAuth
 // @Produce  json
+// @Param Authorization header string true "Bearer token"
 // @Success 200 {object} dto.Profile "success"
-// @Router /api/v1/login [get]
+// @Router /api/v1/user [get]
 func (u *UserController) Me(c *gin.Context) {
 	claims := c.MustGet("claims").(*util.Claims)
 	id, _ := strconv.Atoi(claims.ID)

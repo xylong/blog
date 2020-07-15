@@ -58,18 +58,6 @@ info:
   license: {}
 paths:
   /api/v1/login:
-    get:
-      description: 获取个人信息
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: success
-          schema:
-            $ref: '#/definitions/dto.Profile'
-      summary: 个人信息
-      tags:
-      - 用户接口
     post:
       description: 用户登录
       parameters:
@@ -107,6 +95,27 @@ paths:
           schema:
             type: json
       summary: 注册
+      tags:
+      - 用户接口
+  /api/v1/user:
+    get:
+      description: 获取个人信息
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/dto.Profile'
+      security:
+      - ApiKeyAuth: []
+      summary: 个人信息
       tags:
       - 用户接口
   /ping:
