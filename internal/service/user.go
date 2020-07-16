@@ -1,10 +1,10 @@
 package service
 
 import (
-	"blog/pkg/dao"
-	"blog/pkg/dto"
-	"blog/pkg/model"
-	"blog/pkg/util"
+	"blog/internal/dao"
+	"blog/internal/dto"
+	"blog/internal/model"
+	"blog/internal/util"
 	"errors"
 	"golang.org/x/crypto/bcrypt"
 	"strconv"

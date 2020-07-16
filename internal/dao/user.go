@@ -2,7 +2,7 @@ package dao
 
 import (
 	"blog/init/base"
-	"blog/pkg/model"
+	"blog/internal/model"
 	"github.com/jinzhu/gorm"
 )
 

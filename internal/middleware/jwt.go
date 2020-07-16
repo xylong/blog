@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"blog/pkg"
-	"blog/pkg/util"
+	"blog/internal"
+	"blog/internal/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -22,18 +22,18 @@ func JWT() gin.HandlerFunc {
 		list := strings.Split(authorization, sep)
 		if len(list) != length || list[0] != tokenType {
 			c.Status(http.StatusUnauthorized)
-			c.Set("code", pkg.TokenMalformed)
+			c.Set("code", internal.TokenMalformed)
 			c.Abort()
 			return
 		}
 
 		claims, err := util.NewJWT().Parse(list[1])
 		if err != nil {
-			pkg.PanicError(http.StatusUnauthorized, err)
+			internal.PanicError(http.StatusUnauthorized, err)
 			c.Abort()
 			return
 		} else if time.Now().Unix() > claims.ExpiresAt {
-			c.Set("code", pkg.TokenExpired)
+			c.Set("code", internal.TokenExpired)
 			c.Abort()
 			return
 		}

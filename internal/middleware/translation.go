@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"blog/pkg/dto"
+	"blog/internal/dto"
 	"github.com/gin-gonic/gin"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"

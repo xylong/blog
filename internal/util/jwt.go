@@ -1,10 +1,10 @@
 package util
 
 import (
-	"blog/pkg"
+	"blog/init/base"
+	"blog/internal"
 	"errors"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/spf13/viper"
 	"time"
 )
 
@@ -16,7 +16,7 @@ type JWT interface {
 
 func NewJWT() JWT {
 	return &Token{
-		[]byte(viper.GetString("app.secret")),
+		[]byte(base.Props().GetDefault("jwt.secret", "golang")),
 	}
 }
 
@@ -47,19 +47,19 @@ func (t *Token) Parse(token string) (*Claims, error) {
 		return t.Secret, nil
 	})
 	if err != nil {
-		code := pkg.TokenInvalid
+		code := internal.TokenInvalid
 		if value, ok := err.(*jwt.ValidationError); ok {
 			switch {
 			case value.Errors&jwt.ValidationErrorMalformed != 0:
-				code = pkg.TokenMalformed
+				code = internal.TokenMalformed
 			case value.Errors&jwt.ValidationErrorExpired != 0:
-				code = pkg.TokenExpired
+				code = internal.TokenExpired
 			case value.Errors&jwt.ValidationErrorNotValidYet != 0:
-				code = pkg.TokenNotValidYet
+				code = internal.TokenNotValidYet
 			default:
-				code = pkg.TokenInvalid
+				code = internal.TokenInvalid
 			}
-			return nil, errors.New(pkg.GetMsg(code))
+			return nil, errors.New(internal.GetMsg(code))
 		}
 	}
 	if tokenClaims != nil {
@@ -86,5 +86,5 @@ func (t *Token) Refresh(token string) (string, error) {
 		claims.StandardClaims.ExpiresAt = time.Now().Add(1 * time.Hour).Unix()
 		return t.Generate(claims)
 	}
-	return "", errors.New(pkg.GetMsg(pkg.TokenInvalid))
+	return "", errors.New(internal.GetMsg(internal.TokenInvalid))
 }

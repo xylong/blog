@@ -7,6 +7,7 @@ import (
 
 var props kvs.ConfigSource
 
+// Props 配置支持
 func Props() kvs.ConfigSource {
 	return props
 }

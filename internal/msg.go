@@ -1,4 +1,4 @@
-package pkg
+package internal
 
 var Message = map[int]string{
 	SUCCESS: "ok",

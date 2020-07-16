@@ -3,7 +3,7 @@ package main
 import (
 	initial "blog/init"
 	"blog/init/base"
-	"blog/pkg/router"
+	"blog/internal/router"
 	"fmt"
 	"github.com/spf13/viper"
 	"github.com/tietang/props/ini"
@@ -31,7 +31,6 @@ func main() {
 			panic("配置文件内容错误")
 		}
 	}
-
 	file := kvs.GetCurrentFilePath("config/config.ini", 1)
 	conf := ini.NewIniFileCompositeConfigSource(file)
 	base.InitLog(conf)

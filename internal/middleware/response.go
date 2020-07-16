@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"blog/pkg"
+	"blog/internal"
 	"github.com/gin-gonic/gin"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
@@ -31,7 +31,7 @@ func Recovery(c *gin.Context) {
 		if err := recover(); err != nil {
 			buf := make([]byte, 65536)
 			buf = buf[:runtime.Stack(buf, false)]
-			e, ok := err.(*pkg.Error)
+			e, ok := err.(*internal.Error)
 			if ok {
 				// 翻译
 				errs, ok := e.Err.(validator.ValidationErrors)

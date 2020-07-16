@@ -1,10 +1,10 @@
 package v1
 
 import (
-	"blog/pkg"
-	"blog/pkg/dto"
-	"blog/pkg/service"
-	"blog/pkg/util"
+	"blog/internal"
+	"blog/internal/dto"
+	"blog/internal/service"
+	"blog/internal/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -28,11 +28,11 @@ type UserController struct {
 func (u *UserController) Register(c *gin.Context) {
 	input := &dto.RegisterInput{}
 	if err := input.Check(c, input); err != nil {
-		pkg.PanicError(http.StatusBadRequest, err)
+		internal.PanicError(http.StatusBadRequest, err)
 	}
 	serve := service.NewUserService()
 	if err := serve.Register(input); err != nil {
-		pkg.PanicIfErr(err)
+		internal.PanicIfErr(err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -52,13 +52,13 @@ func (u *UserController) Register(c *gin.Context) {
 func (u *UserController) Login(c *gin.Context) {
 	input := &dto.LoginInput{}
 	if err := input.Check(c, input); err != nil {
-		pkg.PanicError(http.StatusBadRequest, err)
+		internal.PanicError(http.StatusBadRequest, err)
 	}
 
 	serve := service.NewUserService()
 	token, err := serve.Login(input)
 	if err != nil {
-		pkg.PanicIfErr(err)
+		internal.PanicIfErr(err)
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,
@@ -81,7 +81,7 @@ func (u *UserController) Me(c *gin.Context) {
 	serve := service.NewUserService()
 	user, err := serve.Profile(uint(id))
 	if err != nil {
-		pkg.PanicIfErr(err)
+		internal.PanicIfErr(err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
