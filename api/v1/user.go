@@ -4,7 +4,7 @@ import (
 	"blog/internal"
 	"blog/internal/dto"
 	"blog/internal/service"
-	"blog/internal/util"
+	"blog/pkg/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"

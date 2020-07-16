@@ -4,7 +4,7 @@ import (
 	"blog/internal/dao"
 	"blog/internal/dto"
 	"blog/internal/model"
-	"blog/internal/util"
+	"blog/pkg/util"
 	"errors"
 	"golang.org/x/crypto/bcrypt"
 	"strconv"

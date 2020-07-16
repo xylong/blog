@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"blog/internal"
-	"blog/internal/util"
+	"blog/pkg/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
