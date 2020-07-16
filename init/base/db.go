@@ -65,9 +65,7 @@ func (s *DbStarter) Setup(ctx initial.StarterContext) {
 }
 
 func migrate() {
-	if !db.HasTable(&model.User{}) {
-		db.AutoMigrate(&model.User{})
-	}
+	db.AutoMigrate(&model.User{}, &model.Tag{}, &model.Category{}, &model.Article{})
 }
 
 //
