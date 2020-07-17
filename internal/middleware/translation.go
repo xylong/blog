@@ -1,14 +1,10 @@
 package middleware
 
 import (
-	"blog/internal/dto"
+	"blog/init/base"
 	"github.com/gin-gonic/gin"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
-	"github.com/go-playground/validator/v10/translations/en"
-	"github.com/go-playground/validator/v10/translations/zh"
-	"github.com/go-playground/validator/v10/translations/zh_tw"
-	"reflect"
 	"regexp"
 )
 
@@ -18,24 +14,10 @@ const TranslatorKey = "trans"
 func Translate() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		locale := c.DefaultQuery("locale", "zh")
-		trans, _ := dto.Uni.GetTranslator(locale)
+		translator := base.Translate(locale)
+		validate := base.Validate()
 
-		switch locale {
-		case "en":
-			en.RegisterDefaultTranslations(dto.Validate, trans)
-			dto.Validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
-				return fld.Tag.Get("en_comment")
-			})
-		case "zh_tw":
-			zh_tw.RegisterDefaultTranslations(dto.Validate, trans)
-		default:
-			zh.RegisterDefaultTranslations(dto.Validate, trans)
-			dto.Validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
-				return fld.Tag.Get("comment")
-			})
-		}
-
-		dto.Validate.RegisterValidation("phone", func(fl validator.FieldLevel) bool {
+		_ = validate.RegisterValidation("phone", func(fl validator.FieldLevel) bool {
 			if fl.Field().String() == "" {
 				return true
 			}
@@ -43,14 +25,14 @@ func Translate() gin.HandlerFunc {
 			return matched
 		})
 
-		dto.Validate.RegisterTranslation("phone", trans, func(ut ut.Translator) error {
+		_ = validate.RegisterTranslation("phone", translator, func(ut ut.Translator) error {
 			return ut.Add("phone", "{0}格式错误", true)
 		}, func(ut ut.Translator, fe validator.FieldError) string {
 			t, _ := ut.T("phone", fe.Field())
 			return t
 		})
 
-		c.Set(TranslatorKey, trans)
+		c.Set(TranslatorKey, translator)
 		c.Next()
 	}
 }

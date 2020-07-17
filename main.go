@@ -14,6 +14,7 @@ import (
 func init() {
 	initial.Register(&base.PropsStarter{})
 	initial.Register(&base.DbStarter{})
+	initial.Register(&base.ValidatorStarter{})
 }
 
 func main() {
