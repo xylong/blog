@@ -20,6 +20,17 @@ func RandomString(n uint8) string {
 	return string(result)
 }
 
+// RandomNumber 生成随机字数
+func RandomNumber(n uint8) string {
+	s := num2char[0:10]
+	result := make([]byte, n)
+	rand.Seed(time.Now().Unix())
+	for i := range result {
+		result[i] = s[rand.Intn(len(s))]
+	}
+	return string(result)
+}
+
 // NumToBHex 10进制数转换
 // n 表示进制,16 or 36
 func NumToBHex(number, n int) string {
