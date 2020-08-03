@@ -1,6 +1,8 @@
 package model
 
+import "github.com/jinzhu/gorm"
+
 type Tag struct {
-	ID   uint   `gorm:"primary_key"`
+	gorm.Model
 	Name string `gorm:"type:varchar(15);not null;"`
 }
