@@ -39,6 +39,7 @@ func (a *article) Update(article2 *model.Article) (ok bool) {
 	return a.db.Save(article2).RowsAffected > 0
 }
 
+// Select 文章查询
 func (a *article) Select(pageNum, pageSize uint, maps interface{}) (articles []model.Article, total int64, err error) {
 	err = a.db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&articles).Count(&total).Error
 	return
