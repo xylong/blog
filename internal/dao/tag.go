@@ -50,6 +50,7 @@ func (t *tag) Select(pageNum, pageSize uint, maps interface{}) (tags []model.Tag
 	return
 }
 
+// IsExist 标签是否存在
 func (t *tag) IsExist(name string) bool {
 	var tag1 model.Tag
 	t.db.Where("name = ?", name).First(&tag1)

@@ -55,3 +55,16 @@ func TestTag_Select(t *testing.T) {
 		t.Logf("count:%d", total)
 	})
 }
+
+func TestTag_IsExist(t *testing.T) {
+	Convey("判断标签存在", t, func() {
+		dao := NewTagDao()
+		tag := &model.Tag{
+			Name: tools.RandomString(4),
+		}
+		_, err := dao.Create(tag)
+		So(err, ShouldBeNil)
+		ok := dao.IsExist(tag.Name)
+		So(ok, ShouldBeTrue)
+	})
+}
