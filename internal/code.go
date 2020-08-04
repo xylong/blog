@@ -11,4 +11,10 @@ const (
 	TokenNotValidYet = 20003
 	TokenMalformed   = 20004
 	TokenInvalid     = 20005
+
+	TagGetFail    = 40001
+	TagExist      = 40002
+	TagAddFail    = 40003
+	TagUpdateFail = 40004
+	TagDeleteFail = 40005
 )

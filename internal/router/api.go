@@ -25,16 +25,16 @@ func InitRouter() *gin.Engine {
 		V1.POST("/register", v1.User.Register)
 		// 登录
 		V1.POST("/login", v1.User.Login)
+		// 标签
+		V1.GET("/tags", v1.Tag.Index)
 
 		V1.Use(middleware.JWT())
 		{
 			// 个人信息
 			V1.GET("/user", v1.User.Me)
 			// 标签
-			V1.GET("/tags", v1.Tag.Index)
-			V1.GET("/tags/:id", v1.Tag.Show)
 			V1.POST("/tags", v1.Tag.Store)
-			V1.PUT("/tags/:id", v1.Tag.Update)
+			V1.PUT("/tags", v1.Tag.Update)
 			V1.DELETE("/tags/:id", v1.Tag.Delete)
 			// 分类
 			V1.GET("/categories", v1.Category.Index)
@@ -42,12 +42,16 @@ func InitRouter() *gin.Engine {
 			V1.POST("/categories", v1.Category.Store)
 			V1.PUT("/categories/:id", v1.Category.Update)
 			V1.DELETE("/categories/:id", v1.Category.Delete)
+
 			// 文章
-			V1.GET("/articles", v1.Article.Index)
-			V1.GET("/articles/:id", v1.Article.Show)
-			V1.POST("/articles", v1.Article.Store)
-			V1.PUT("/articles/:id", v1.Article.Update)
-			V1.DELETE("/articles/:id", v1.Article.Delete)
+			articles := V1.Group("/articles")
+			{
+				articles.GET(":id", v1.Article.Show)
+				articles.GET("", v1.Article.Index)
+				articles.POST("", v1.Article.Store)
+				articles.DELETE(":id", v1.Article.Delete)
+				articles.PATCH(":id", v1.Article.Update)
+			}
 		}
 	}
 

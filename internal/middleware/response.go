@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
-	"log"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"runtime"
 )
@@ -44,10 +44,10 @@ func Recovery(c *gin.Context) {
 				}
 
 				if e.Code >= http.StatusInternalServerError {
-					log.Printf("%s\n%s", err, buf)
+					logrus.Errorf("%s\n%s", err, buf)
 				}
 
-				c.AbortWithStatusJSON(e.Code, gin.H{
+				c.AbortWithStatusJSON(http.StatusOK, gin.H{
 					"code": e.Code,
 					"msg":  e.Msg,
 					"data": gin.H{},

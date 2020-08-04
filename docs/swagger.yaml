@@ -53,6 +53,47 @@ definitions:
     - name
     - password
     type: object
+  dto.TagInput:
+    properties:
+      name:
+        description: 标签名
+        example: mysql
+        type: string
+    required:
+    - name
+    type: object
+  dto.TagListOutput:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/dto.TagOutput'
+        type: array
+      total:
+        type: integer
+    type: object
+  dto.TagOutput:
+    properties:
+      id:
+        description: id
+        type: integer
+      name:
+        description: 标签名
+        type: string
+    type: object
+  dto.TagUpdate:
+    properties:
+      id:
+        description: id
+        example: 1
+        type: integer
+      name:
+        description: 标签名
+        example: mysql
+        type: string
+    required:
+    - id
+    - name
+    type: object
 info:
   contact: {}
   license: {}
@@ -97,6 +138,95 @@ paths:
       summary: 注册
       tags:
       - 用户接口
+  /api/v1/tags:
+    get:
+      description: 标签列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/dto.TagListOutput'
+      summary: 标签列表
+      tags:
+      - 标签
+    post:
+      description: 创建标签
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TagInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":"","msg":"ok"}'
+          schema:
+            type: json
+      security:
+      - ApiKeyAuth: []
+      summary: 创建标签
+      tags:
+      - 标签
+    put:
+      description: 修改标签
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TagUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":"","msg":"ok"}'
+          schema:
+            type: json
+      security:
+      - ApiKeyAuth: []
+      summary: 修改标签
+      tags:
+      - 标签
+  /api/v1/tags/{id}:
+    delete:
+      description: 删除标签
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":"","msg":"ok"}'
+          schema:
+            type: json
+      summary: 删除标签
+      tags:
+      - 标签
   /api/v1/user:
     get:
       description: 获取个人信息

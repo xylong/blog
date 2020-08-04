@@ -10,7 +10,7 @@ type TagDao interface {
 	Create(*model.Tag) (uint, error)
 	Delete(uint) bool
 	Update(*model.Tag) error
-	Select(uint, uint, interface{}) ([]model.Tag, int64, error)
+	Select(pageNum, pageSize uint, maps interface{}) ([]model.Tag, int64, error)
 	// IsExist 判断标签是否存在
 	IsExist(string) bool
 }

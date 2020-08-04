@@ -11,6 +11,12 @@ var Message = map[int]string{
 	TokenNotValidYet: "令牌尚未激活",
 	TokenMalformed:   "非法令牌",
 	TokenInvalid:     "无效令牌",
+
+	TagGetFail:    "标签获取失败",
+	TagExist:      "标签已存在",
+	TagAddFail:    "标签添加失败",
+	TagUpdateFail: "标签修改失败",
+	TagDeleteFail: "标签删除失败",
 }
 
 // GetMsg 获取错误信息

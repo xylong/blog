@@ -2,7 +2,6 @@ package internal
 
 import (
 	"errors"
-	"net/http"
 )
 
 type Error struct {
@@ -14,7 +13,14 @@ type Error struct {
 // PanicIfErr 将错误直接抛出
 func PanicIfErr(err error) {
 	if err != nil {
-		PanicError(http.StatusInternalServerError, err)
+		PanicError(SUCCESS, err)
+	}
+}
+
+// PanicCode 根据错误码抛出
+func PanicCode(code int) {
+	if code != SUCCESS {
+		PanicErrorWithMsg(code, GetMsg(code))
 	}
 }
 
