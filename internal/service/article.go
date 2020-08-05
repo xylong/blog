@@ -40,6 +40,8 @@ func (a *article) Select(input *dto.ArticleListInput) (output dto.ArticleListOut
 				Visits:    item.Visits,
 			})
 		}
+	} else {
+		output.List = []*dto.ArticleItemOutput{}
 	}
 	return
 }
