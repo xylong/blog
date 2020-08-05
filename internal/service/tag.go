@@ -39,6 +39,8 @@ func (t *tag) Select() (output dto.TagListOutput) {
 				Name: item.Name,
 			})
 		}
+	} else {
+		output.List = []*dto.TagOutput{}
 	}
 	return
 }

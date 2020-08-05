@@ -37,6 +37,8 @@ func (c *category) Select() (output dto.CategoryListOutput) {
 				Name: item.Name,
 			})
 		}
+	} else {
+		output.List = []*dto.CategoryOutput{}
 	}
 	return
 }
