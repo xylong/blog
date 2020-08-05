@@ -17,6 +17,12 @@ var Message = map[int]string{
 	TagAddFail:    "标签添加失败",
 	TagUpdateFail: "标签修改失败",
 	TagDeleteFail: "标签删除失败",
+
+	CategoryGetFail:    "分类获取失败",
+	CategoryExist:      "分类已存在",
+	CategoryAddFail:    "分类创建失败",
+	CategoryUpdateFail: "分类修改失败",
+	CategoryDeleteFail: "分类删除失败",
 }
 
 // GetMsg 获取错误信息

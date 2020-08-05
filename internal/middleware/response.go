@@ -27,6 +27,8 @@ func ResponseHandler(c *gin.Context) {
 }
 
 func Recovery(c *gin.Context) {
+	httpCode := http.StatusOK
+
 	defer func() {
 		if err := recover(); err != nil {
 			buf := make([]byte, 65536)
@@ -36,6 +38,8 @@ func Recovery(c *gin.Context) {
 				// 翻译
 				errs, ok := e.Err.(validator.ValidationErrors)
 				if ok {
+					// 设置http为400
+					httpCode = http.StatusBadRequest
 					trans, _ := c.Value(TranslatorKey).(ut.Translator)
 					for _, item := range errs {
 						e.Msg = item.Translate(trans)
@@ -47,7 +51,7 @@ func Recovery(c *gin.Context) {
 					logrus.Errorf("%s\n%s", err, buf)
 				}
 
-				c.AbortWithStatusJSON(http.StatusOK, gin.H{
+				c.AbortWithStatusJSON(httpCode, gin.H{
 					"code": e.Code,
 					"msg":  e.Msg,
 					"data": gin.H{},

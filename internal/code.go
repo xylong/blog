@@ -17,4 +17,10 @@ const (
 	TagAddFail    = 40003
 	TagUpdateFail = 40004
 	TagDeleteFail = 40005
+
+	CategoryGetFail    = 50001
+	CategoryExist      = 50002
+	CategoryAddFail    = 50003
+	CategoryUpdateFail = 50004
+	CategoryDeleteFail = 50005
 )

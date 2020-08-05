@@ -1,4 +1,25 @@
 definitions:
+  dto.CategoryInput:
+    properties:
+      name:
+        example: 编程
+        type: string
+    required:
+    - name
+    type: object
+  dto.CategoryUpdate:
+    properties:
+      id:
+        description: id
+        example: 1
+        type: integer
+      name:
+        example: 编程
+        type: string
+    required:
+    - id
+    - name
+    type: object
   dto.LoginInput:
     properties:
       email:
@@ -98,6 +119,95 @@ info:
   contact: {}
   license: {}
 paths:
+  /api/v1/categories:
+    get:
+      description: 分类列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/dto.TagListOutput'
+      summary: 分类列表
+      tags:
+      - 分类
+    patch:
+      description: 修改分类
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CategoryUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":"","msg":"ok"}'
+          schema:
+            type: json
+      security:
+      - ApiKeyAuth: []
+      summary: 修改分类
+      tags:
+      - 分类
+    post:
+      description: 创建分类
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CategoryInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":"","msg":"ok"}'
+          schema:
+            type: json
+      security:
+      - ApiKeyAuth: []
+      summary: 创建分类
+      tags:
+      - 分类
+  /api/v1/categories/{id}:
+    delete:
+      description: 删除分类
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 分类ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":"","msg":"ok"}'
+          schema:
+            type: json
+      summary: 删除分类
+      tags:
+      - 分类
   /api/v1/login:
     post:
       description: 用户登录

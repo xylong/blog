@@ -27,6 +27,8 @@ func InitRouter() *gin.Engine {
 		V1.POST("/login", v1.User.Login)
 		// 标签
 		V1.GET("/tags", v1.Tag.Index)
+		// 分类
+		V1.GET("/categories", v1.Category.Index)
 
 		V1.Use(middleware.JWT())
 		{
@@ -37,11 +39,12 @@ func InitRouter() *gin.Engine {
 			V1.PUT("/tags", v1.Tag.Update)
 			V1.DELETE("/tags/:id", v1.Tag.Delete)
 			// 分类
-			V1.GET("/categories", v1.Category.Index)
-			V1.GET("/categories/:id", v1.Category.Show)
-			V1.POST("/categories", v1.Category.Store)
-			V1.PUT("/categories/:id", v1.Category.Update)
-			V1.DELETE("/categories/:id", v1.Category.Delete)
+			categories := V1.Group("/categories")
+			{
+				categories.POST("", v1.Category.Store)
+				categories.PATCH("", v1.Category.Update)
+				categories.DELETE(":id", v1.Category.Delete)
+			}
 
 			// 文章
 			articles := V1.Group("/articles")
