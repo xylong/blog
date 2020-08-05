@@ -8,18 +8,24 @@
 ├── api
 │   └── v1
 ├── config
-│   └── dev
 ├── docs
-└── pkg
-    ├── base
-    ├── ctrl
-    ├── dto
-    ├── middleware
-    ├── model
-    ├── router
-    └── util
+├── init
+│   └── base
+├── internal
+│   ├── ctrl
+│   ├── dao
+│   ├── dto
+│   ├── middleware
+│   ├── model
+│   ├── router
+│   └── service
+├── logs
+├── pkg
+│   └── util
+├── test
+│   └── data
+└── tools
 ```
-
 ### 第三方包
 - [logrus](https://github.com/sirupsen/logrus) 日志
 - [swagger](https://github.com/swaggo/gin-swagger) 文档
