@@ -29,15 +29,21 @@ func InitRouter() *gin.Engine {
 		V1.GET("/tags", v1.Tag.Index)
 		// 分类
 		V1.GET("/categories", v1.Category.Index)
+		// 文章
+		V1.GET("/articles", v1.Article.Index)
+		V1.GET("/articles/:id", v1.Article.Show)
 
 		V1.Use(middleware.JWT())
 		{
 			// 个人信息
 			V1.GET("/user", v1.User.Me)
 			// 标签
-			V1.POST("/tags", v1.Tag.Store)
-			V1.PUT("/tags", v1.Tag.Update)
-			V1.DELETE("/tags/:id", v1.Tag.Delete)
+			tags := V1.Group("/tags")
+			{
+				tags.POST("", v1.Tag.Store)
+				tags.PUT("", v1.Tag.Update)
+				tags.DELETE(":id", v1.Tag.Delete)
+			}
 			// 分类
 			categories := V1.Group("/categories")
 			{
@@ -45,15 +51,12 @@ func InitRouter() *gin.Engine {
 				categories.PATCH("", v1.Category.Update)
 				categories.DELETE(":id", v1.Category.Delete)
 			}
-
 			// 文章
 			articles := V1.Group("/articles")
 			{
-				articles.GET(":id", v1.Article.Show)
-				articles.GET("", v1.Article.Index)
 				articles.POST("", v1.Article.Store)
 				articles.DELETE(":id", v1.Article.Delete)
-				articles.PATCH(":id", v1.Article.Update)
+				articles.PATCH("", v1.Article.Update)
 			}
 		}
 	}

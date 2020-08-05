@@ -1,4 +1,88 @@
 definitions:
+  dto.ArticleInput:
+    properties:
+      category_id:
+        example: 1
+        type: integer
+      content:
+        example: 我想去看看
+        type: string
+      title:
+        example: 世界辣么大
+        type: string
+    required:
+    - category_id
+    - content
+    - title
+    type: object
+  dto.ArticleItemOutput:
+    properties:
+      created_at:
+        description: 创建时间
+        type: string
+      id:
+        description: id
+        type: integer
+      title:
+        description: 标题
+        type: string
+      visits:
+        description: 访问量
+        type: integer
+    type: object
+  dto.ArticleListOutput:
+    properties:
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/dto.ArticleItemOutput'
+        type: array
+      total:
+        description: 数量
+        type: integer
+    type: object
+  dto.ArticleOutput:
+    properties:
+      category_id:
+        description: 分类id
+        type: integer
+      category_name:
+        description: 分类name
+        type: string
+      content:
+        description: 内容
+        type: string
+      created_at:
+        description: 创建时间
+        type: string
+      id:
+        description: id
+        type: integer
+      title:
+        description: 标题
+        type: string
+      visits:
+        description: 访问量
+        type: integer
+    type: object
+  dto.ArticleUpdateInput:
+    properties:
+      category_id:
+        example: 1
+        type: integer
+      content:
+        example: 我想去看看
+        type: string
+      id:
+        description: id
+        example: 1
+        type: integer
+      title:
+        example: 世界辣么大
+        type: string
+    required:
+    - id
+    type: object
   dto.CategoryInput:
     properties:
       name:
@@ -119,6 +203,132 @@ info:
   contact: {}
   license: {}
 paths:
+  /api/v1/articles:
+    get:
+      description: 文章列表
+      parameters:
+      - description: 分类id
+        in: query
+        name: category_id
+        type: integer
+      - description: 搜索关键词
+        in: query
+        name: title
+        type: string
+      - description: 条数
+        in: query
+        name: page_size
+        required: true
+        type: string
+      - description: 页码
+        in: query
+        name: page_no
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/dto.ArticleListOutput'
+      summary: 文章列表
+      tags:
+      - 文章
+    patch:
+      description: 修改文章
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ArticleUpdateInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":"","msg":"ok"}'
+          schema:
+            type: json
+      security:
+      - ApiKeyAuth: []
+      summary: 修改文章
+      tags:
+      - 文章
+    post:
+      description: 写文章
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ArticleInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":"","msg":"ok"}'
+          schema:
+            type: json
+      security:
+      - ApiKeyAuth: []
+      summary: 写文章
+      tags:
+      - 文章
+  /api/v1/articles/{id}:
+    delete:
+      description: 删除文章
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":"","msg":"ok"}'
+          schema:
+            type: json
+      summary: 删除文章
+      tags:
+      - 文章
+    get:
+      description: 文章详情
+      parameters:
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/dto.ArticleOutput'
+      summary: 文章详情
+      tags:
+      - 文章
   /api/v1/categories:
     get:
       description: 分类列表

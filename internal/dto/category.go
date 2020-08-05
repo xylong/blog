@@ -17,5 +17,5 @@ type CategoryListOutput struct {
 
 type CategoryUpdate struct {
 	CategoryInput
-	ID int `json:"id" form:"name" comment:"分类id" example:"1" validate:"required,gt=0"` // id
+	ID int `json:"id" form:"id" comment:"分类id" example:"1" validate:"required,gt=0"` // id
 }

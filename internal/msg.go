@@ -23,6 +23,11 @@ var Message = map[int]string{
 	CategoryAddFail:    "分类创建失败",
 	CategoryUpdateFail: "分类修改失败",
 	CategoryDeleteFail: "分类删除失败",
+
+	ArticleGetFail:    "文章获取失败",
+	ArticleAddFail:    "文章创建失败",
+	ArticleUpdateFail: "文章修改失败",
+	ArticleDeleteFail: "文章删除失败",
 }
 
 // GetMsg 获取错误信息

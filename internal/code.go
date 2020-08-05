@@ -23,4 +23,9 @@ const (
 	CategoryAddFail    = 50003
 	CategoryUpdateFail = 50004
 	CategoryDeleteFail = 50005
+
+	ArticleGetFail    = 60001
+	ArticleAddFail    = 60002
+	ArticleUpdateFail = 60003
+	ArticleDeleteFail = 60004
 )
