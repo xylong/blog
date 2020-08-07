@@ -1,8 +1,9 @@
 package internal
 
 var Message = map[int]string{
-	SUCCESS: "ok",
-	ERROR:   "fail",
+	SUCCESS:       "ok",
+	InvalidParams: "请求参数错误",
+	ERROR:         "fail",
 
 	RedisError: "Redis异常",
 
@@ -28,6 +29,11 @@ var Message = map[int]string{
 	ArticleAddFail:    "文章创建失败",
 	ArticleUpdateFail: "文章修改失败",
 	ArticleDeleteFail: "文章删除失败",
+
+	UploadInvalidFile: "无效文件",
+	UploadFormat:      "格式错误",
+	UploadSize:        "大小超出",
+	UploadSave:        "上传失败",
 }
 
 // GetMsg 获取错误信息

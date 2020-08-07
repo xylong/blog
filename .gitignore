@@ -1,3 +1,4 @@
 .idea
 /logs
 /internal/dao/logs
+assets/upload/*

@@ -1,6 +1,8 @@
 package tools
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"math"
 	"math/rand"
 	"strings"
@@ -55,4 +57,12 @@ func BHex2Num(str string, n int) int {
 		v += float64(index) * math.Pow(float64(n), float64(length-1-i)) // 倒叙
 	}
 	return int(v)
+}
+
+// EncodeMD5 md5加密
+func EncodeMD5(value string) string {
+	m := md5.New()
+	m.Write([]byte(value))
+
+	return hex.EncodeToString(m.Sum(nil))
 }

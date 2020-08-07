@@ -12,6 +12,7 @@ import (
 
 func InitRouter() *gin.Engine {
 	router := gin.New()
+	router.MaxMultipartMemory = 1024
 	router.Use(middleware.Recovery, middleware.Logger())
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -58,6 +59,8 @@ func InitRouter() *gin.Engine {
 				articles.DELETE(":id", v1.Article.Delete)
 				articles.PATCH("", v1.Article.Update)
 			}
+			// 上传
+			V1.POST("/upload", v1.Upload.Upload)
 		}
 	}
 

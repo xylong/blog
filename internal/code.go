@@ -1,8 +1,9 @@
 package internal
 
 const (
-	SUCCESS = 0
-	ERROR   = 10000
+	SUCCESS       = 0
+	InvalidParams = 400
+	ERROR         = 10000
 
 	RedisError = 10001
 
@@ -28,4 +29,9 @@ const (
 	ArticleAddFail    = 60002
 	ArticleUpdateFail = 60003
 	ArticleDeleteFail = 60004
+
+	UploadInvalidFile = 70001
+	UploadFormat      = 70002
+	UploadSize        = 70003
+	UploadSave        = 70004
 )
